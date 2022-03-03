@@ -1,5 +1,20 @@
-class Storage extends EventEmiter {
+import EventEmitter from 'events';
 
+class Storage extends EventEmitter {
+  constructor() {
+    super();
+
+    this.tasks = [];
+  }
+
+  addTask(task) {
+    this.tasks.push(task);
+    this.emit('task', task);
+  }
+
+  getStats() {
+    return this.tasks;
+  }
 }
 
-const storage = new Storage();
+export const storage = new Storage();
