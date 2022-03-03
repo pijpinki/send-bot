@@ -1,12 +1,13 @@
 import net from 'net';
 
 class TcpBot {
-  constructor(params) {
-    this.ip = params.ip;
-    this.port = params.port;
+  constructor(task) {
+    this.ip = task.ip;
+    this.port = task.port;
 
     this.client = null;
     this.actvie = false;
+    this.connections = 0;
     this.timeoutId = 0;
   }
 
@@ -16,9 +17,12 @@ class TcpBot {
     this.client.connect({ port: this.port, host: this.ip }, err => {
       if (err) console.error('error');
 
+      console.info('tcp connected');
+      this.connections++;
+
       if (!this.actvie) return;
 
-      setTimeout(this.reconnect.bind(this), 10e3);
+      this.timeoutId = setTimeout(this.reconnect.bind(this), 10e3);
     });
 
     this.client.on('end', () => {
@@ -28,11 +32,13 @@ class TcpBot {
   }
 
   reconnect() {
+    this.connections--;
     this.client?.end();
     this.start();
   }
 
   async destroy() {
+    this.connections = 0;
     this.actvie = false;
     clearTimeout(this.timeoutId);
     this.client?.end();
