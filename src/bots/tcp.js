@@ -28,7 +28,7 @@ export class TcpBot {
     this.attempst++;
 
     const closeTimeout = setTimeout(() => {
-      this.client.close();
+      this.client.end();
     }, 1e3);
 
     this.client.connect({ port: this.port, host: this.ip }, err => {
