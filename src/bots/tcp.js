@@ -27,7 +27,7 @@ export class TcpBot {
 
     this.attempst++;
 
-    setTimeout(() => {
+    const closeTimeout = setTimeout(() => {
       this.client.close();
     }, 1e3);
 
@@ -35,6 +35,8 @@ export class TcpBot {
       if (err) this.logger.error('error', err);
 
       this.connections++;
+
+      clearTimeout(closeTimeout);
 
       if (!this.actvie) return;
 
