@@ -19,6 +19,7 @@ export class Server {
   }
 
   async start() {
+    console.info('startng at', config.port)
     return this.app.listen(config.port);
   }
 }

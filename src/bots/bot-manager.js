@@ -11,8 +11,15 @@ export class BotManager {
   }
 
   start(connections = 1e3) {
+    console.info('start bot', connections);
     for(let i = 0; i < connections; i++) {
-      this.bots.push(this.getBot());
+      const bot = this.getBot();
+
+      if (!bot) continue;
+
+      bot.start();
+
+      this.bots.push(bot);
     }
   }
 

@@ -8,7 +8,11 @@ export class Worker {
 
   start() {
     storage.on('task', (task) => {
-      this.bots.push(new BotManager(task));
+      const bot = new BotManager(task);
+
+      bot.start();
+
+      this.bots.push(bot);
     });
   }
 }

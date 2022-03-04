@@ -2,9 +2,9 @@ import KoaRouter from 'koa-router';
 import { storage } from '../storage';
 import { Task } from '../task';
 
-const router = new KoaRouter({ prefix: '/tasks '});
+const router = new KoaRouter();
 
-router.post('/', async ctx => {
+router.post('/tasks', async ctx => {
   storage.addTask(new Task(ctx.request.body));
 
   ctx.body = ctx.request.body;

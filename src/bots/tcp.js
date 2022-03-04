@@ -15,24 +15,31 @@ export class TcpBot {
     this.client = new net.Socket();
 
     this.client.connect({ port: this.port, host: this.ip }, err => {
-      if (err) console.error('error');
+      if (err) console.error('error', err);
 
-      console.info('tcp connected');
       this.connections++;
 
       if (!this.actvie) return;
 
-      this.timeoutId = setTimeout(this.reconnect.bind(this), 10e3);
+      this.timeoutId = setTimeout(this.reconnect.bind(this), 1e2);
     });
 
     this.client.on('end', () => {
       if (!this.actvie) return;
       this.reconnect();
     });
+
+    this.client.on('error', () => {
+      console.error('client error')
+    })
   }
 
   reconnect() {
     this.connections--;
+    this.client?.off('message');
+    this.client?.off('error');
+    this.client?.off('end');
+
     this.client?.end();
     this.start();
   }
