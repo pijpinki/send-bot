@@ -12,6 +12,7 @@
 
   "scripts": {
     "start": "node --es-module-specifier-resolution=node ./src",
-    "start-tcp": "node --es-module-specifier-resolution=node ./src/test-utils/tcp-server.js"
+    "start-tcp": "node --es-module-specifier-resolution=node ./src/test-utils/tcp-server.js",
+    "start-udp": "node --es-module-specifier-resolution=node ./src/test-utils/udp-server.js"
   }
 }

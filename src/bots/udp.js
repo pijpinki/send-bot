@@ -7,11 +7,13 @@ export class UdpBot {
     this.active = true;
     this.client = null;
     this.timeoutId = 0;
+
+    process.on('exit', this.destroy.bind(this))
   }
 
-  sendMessage() {
+  start() {
     this.client = udp.createSocket('udp4');
-    const data = Buffer.from('Русский иди на хуй !');
+    const data = Buffer.from('Русский солдат иди на хуй !');
 
     this.client.send(data, this.port, this.ip, (error) => {
       if (error) console.error(error);
@@ -20,7 +22,7 @@ export class UdpBot {
 
       if (!this.active) return;
 
-      this.timeoutId = setTimeout(this.sendMessage.bind(this), 1e2);
+      this.timeoutId = setTimeout(this.start.bind(this), 1e2);
     });
   }
 
