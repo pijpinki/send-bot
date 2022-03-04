@@ -6,7 +6,7 @@ class TcpBot {
     this.port = task.port;
 
     this.client = null;
-    this.actvie = false;
+    this.actvie = true;
     this.connections = 0;
     this.timeoutId = 0;
   }
