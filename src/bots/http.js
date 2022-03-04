@@ -3,7 +3,7 @@ import request from 'request';
 export class HttpBot {
   constructor(task) {
     this.task = task;
-    this.address = task.address;
+    this.address = task.url;
 
     this.actvie = true;
     this.connections = 0;
