@@ -1,3 +1,4 @@
+import log4js from 'log4js';
 import { TcpBot } from './tcp';
 import { HttpBot } from './http';
 import { UdpBot } from './udp';
@@ -6,12 +7,14 @@ import { PROTOCOL } from '../constants';
 export class BotManager {
   constructor(task) {
     this.task = task;
+    this.logger = log4js.getLogger(`BOT MANAGER ${task.protocol} ${task.ip} ${task.port} ${task.url}`);
+    this.logger.level = 'ALL';
 
     this.bots = [];
   }
 
   start(connections = 1e3) {
-    console.info('start bot', connections);
+    this.logger.info('start bot', connections);
     for(let i = 0; i < connections; i++) {
       const bot = this.getBot();
 
