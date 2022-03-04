@@ -25,11 +25,12 @@ export class TcpBot {
   start() {
     this.client = new net.Socket();
 
+    this.attempst++;
+
     this.client.connect({ port: this.port, host: this.ip }, err => {
       if (err) this.logger.error('error', err);
 
       this.connections++;
-      this.attempst++;
 
       if (!this.actvie) return;
 
