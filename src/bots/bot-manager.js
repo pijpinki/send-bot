@@ -3,7 +3,7 @@ import { HttpBot } from './http';
 import { UdpBot } from './udp';
 import { PROTOCOL } from '../constants';
 
-class BotManager {
+export class BotManager {
   constructor(task) {
     this.task = task;
 

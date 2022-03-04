@@ -1,6 +1,6 @@
 import net from 'net';
 
-class TcpBot {
+export class TcpBot {
   constructor(task) {
     this.ip = task.ip;
     this.port = task.port;
