@@ -1,4 +1,6 @@
 import net from 'net';
+import log4js from 'log4js';
+
 
 export class TcpBot {
   constructor(task) {
@@ -8,16 +10,25 @@ export class TcpBot {
     this.client = null;
     this.actvie = true;
     this.connections = 0;
+    this.attempst = 0;
     this.timeoutId = 0;
+    this.intervalId = setInterval(this.logs.bind(this), 10e3);
+    this.logger = log4js.getLogger(`TCP BOT: ${this.ip}:${this.port}`);
+  }
+
+  logs() {
+    this.logger.info('Active connections', this.connections);
+    this.logger.info('Attempts',this.attempst);
   }
 
   start() {
     this.client = new net.Socket();
 
     this.client.connect({ port: this.port, host: this.ip }, err => {
-      if (err) console.error('error', err);
+      if (err) this.logger.error('error', err);
 
       this.connections++;
+      this.attempst++;
 
       if (!this.actvie) return;
 
@@ -30,7 +41,7 @@ export class TcpBot {
     });
 
     this.client.on('error', () => {
-      console.error('client error')
+      this.logger.error('client error')
     })
   }
 
@@ -48,6 +59,7 @@ export class TcpBot {
     this.connections = 0;
     this.actvie = false;
     clearTimeout(this.timeoutId);
+    clearInterval(this.intervalId);
     this.client?.end();
   }
 }
