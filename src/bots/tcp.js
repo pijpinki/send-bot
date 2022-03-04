@@ -14,6 +14,7 @@ export class TcpBot {
     this.timeoutId = 0;
     this.intervalId = setInterval(this.logs.bind(this), 10e3);
     this.logger = log4js.getLogger(`TCP BOT: ${this.ip}:${this.port}`);
+    this.logger.level = 'all';
   }
 
   logs() {
