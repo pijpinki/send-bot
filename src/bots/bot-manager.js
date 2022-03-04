@@ -1,4 +1,5 @@
 import { TcpBot } from './tcp';
+import { HttpBot } from './http';
 import { PROTOCOL } from '../constants';
 
 class BotManager {
@@ -17,6 +18,10 @@ class BotManager {
   getBot() {
     if (this.task.protocol === PROTOCOL.TCP) {
       return new TcpBot(this.task);
+    }
+
+    if (this.task.protocol === PROTOCOL.HTTP) {
+      return new HttpBot(this.task);
     }
 
     return null;
