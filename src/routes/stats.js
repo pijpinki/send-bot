@@ -1,9 +1,9 @@
 import Router from 'koa-router';
 import { storage } from '../storage';
 
-const router = new Router({ prefix: '/stats '});
+const router = new Router();
 
-router.get('/', async ctx => {
+router.get('/stats', async ctx => {
   return ctx.body = storage.getStats();
 });
 
