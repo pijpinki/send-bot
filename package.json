@@ -1,5 +1,6 @@
 {
   "type": "module",
+
   "dependencies": {
     "dotenv": "^16.0.0",
     "koa": "^2.13.4",
@@ -8,7 +9,9 @@
     "koa-router": "^10.1.1",
     "request": "^2.88.2"
   },
+
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node ./src"
+    "start": "node --es-module-specifier-resolution=node ./src",
+    "start-tcp": "node --es-module-specifier-resolution=node ./src/test-utils/tcp-server.js"
   }
 }
