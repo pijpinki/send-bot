@@ -44,6 +44,7 @@ export class TcpBot {
     });
 
     this.client.on('end', () => {
+      this.logger.warn('end');
       if (!this.actvie) return;
       this.reconnect();
     });
